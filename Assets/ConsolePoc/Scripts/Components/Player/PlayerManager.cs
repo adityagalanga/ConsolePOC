@@ -26,11 +26,16 @@ namespace Nagih
             OnUserConnectedReturnData user = data.ToObject<OnUserConnectedReturnData>();
             if(user != null)
             {
-                CharacterInputListener obj = CharacterInput.GetObject();
-                obj.ClearPosition();
+                if (!PlayerList.ContainsKey(user.id))
+                {
+                    CharacterInputListener obj = CharacterInput.GetObject();
+                    obj.ClearPosition();
+                    obj.AddIDText(user.name);
+                    obj.ResetColor();
 
-                PlayerList.Add(user.Id, obj);
-                obj.gameObject.SetActive(true);
+                    PlayerList.Add(user.id, obj);
+                    obj.gameObject.SetActive(true);
+                }
             }
         }
 
@@ -39,9 +44,10 @@ namespace Nagih
             OnUserDisconnectReturnData user = data.ToObject<OnUserDisconnectReturnData>();
             if (user != null)
             {
-                if (PlayerList.Any(x => x.Key == user.Id))
+                if (PlayerList.Any(x => x.Key == user.id))
                 {
-                    PlayerList.Remove(user.Id);
+                    CharacterInput.ReturnObject(PlayerList[user.id]);
+                    PlayerList.Remove(user.id);
                 }
             }
         }
@@ -51,21 +57,21 @@ namespace Nagih
             OnInputReturnData user = data.ToObject<OnInputReturnData>();
             if (user != null)
             {
-                if(PlayerList.Any(x=>x.Key == user.Id))
+                if(PlayerList.Any(x=>x.Key == user.id))
                 {
-                    CharacterInputListener selected = PlayerList[user.Id];
+                    CharacterInputListener selected = PlayerList[user.id];
                     
-                    if((int)user.Input <= 4)
+                    if((int)user.input < 4)
                     {
                         //DPAD Controller
-                        selected.OnMove(user.Input, user.Conditon);
+                        selected.OnMove(user.input, user.condition);
                     }
                     else
                     {
-                        if(user.Input == InputController.ChangeColor)
+                        if(user.input == InputController.ChangeColor)
                         {
                             string color = selected.OnChangeColor();
-                            Socket.SendMessage(SocketType.ChangeColorController, new ChangeColorRequestData(user.Id, color));
+                            Socket.SendMessage(SocketType.ChangeColorController, new ChangeColorRequestData(user.id, color));
                         }
                     }
 

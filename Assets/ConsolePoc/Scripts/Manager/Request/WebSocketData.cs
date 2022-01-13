@@ -18,12 +18,12 @@ namespace Nagih
 
     public class WebSocketConnectionData
     {
-        public int type;
+        public int req_type;
         public IRequestData data;
 
         public WebSocketConnectionData(int type, IRequestData data)
         {
-            this.type = type;
+            this.req_type = type;
             this.data = data;
         }
     }

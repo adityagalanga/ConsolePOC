@@ -79,7 +79,8 @@ namespace Nagih
 
         private void Login(SceneLoading loading)
         {
-            Manager.GetInstance().Login.DoLoginSequence(OnComplete, OnEverySequence);
+            //Manager.GetInstance().Login.DoLoginSequence(OnComplete, OnEverySequence);
+            OnComplete();
 
             void OnComplete()
             {
@@ -87,10 +88,10 @@ namespace Nagih
                 Manager.GetInstance().Scene.ChangeScene(Enum.Scene.Game);
             }
 
-            void OnEverySequence()
-            {
-                loading.AddMaxProgress(0.1f);
-            }
+            //void OnEverySequence()
+            //{
+            //    loading.AddMaxProgress(0.1f);
+            //}
         }
     }
 }

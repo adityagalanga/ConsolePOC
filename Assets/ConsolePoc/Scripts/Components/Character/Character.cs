@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 namespace Nagih
 {
     public class Character : MonoBehaviour
@@ -9,7 +9,17 @@ namespace Nagih
         public GameObject CharacterObject;
         public Rigidbody CharacterRigidBody;
         public Renderer PlayerRenderer;
+        public Text IDText;
         public float Speed = 0.2f;
+
+        public void AddIDText(string text)
+        {
+            IDText.text = text;
+        }
+        public void ResetColor()
+        {
+            PlayerRenderer.material.color = Color.white;
+        }
 
         public void MoveCharacter(Vector3 translate)
         {

@@ -60,13 +60,6 @@ namespace Nagih
                     new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             string reqJson = raw;
 
-            if (Const.UseCypher())
-            {
-                string cypher = Encryption.EncryptAES(raw, Const.SERVER_KEY_SECRET);
-                RequestEncryptedData reqCypher = new RequestEncryptedData(cypher);
-                reqJson = JsonConvert.SerializeObject(reqCypher, Formatting.None);
-            }
-
             byte[] reqByte = new System.Text.UTF8Encoding().GetBytes(reqJson);
             Debug.Log($"[REQ] Raw:{raw} \nCypher:{reqJson}");
             return reqByte;

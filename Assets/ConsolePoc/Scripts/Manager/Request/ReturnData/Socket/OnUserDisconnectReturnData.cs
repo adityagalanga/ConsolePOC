@@ -2,6 +2,7 @@ namespace Nagih
 {
     public class OnUserDisconnectReturnData : SocketReturnData
     {
-        public string Id;
+        public string id;
+        public string name;
     }
 }

@@ -2,7 +2,7 @@
 {
     public class SocketReturnData : IReturnData
     {
-        public string Type;
-        public int Error;
+        public string type;
+        public int error;
     }
 }

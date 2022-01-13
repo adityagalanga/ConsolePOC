@@ -73,16 +73,16 @@ namespace Nagih
 
     public enum InputController
     {
-        Forward = 0,
-        Backward = 1,
-        Left = 2,
-        Right = 3,
+        up = 0,
+        down = 1,
+        left = 2,
+        right = 3,
         ChangeColor = 4
     }
 
     public enum InputAction
     {
-        Up = 0,
-        Down = 1,
+        up = 0,
+        down = 1,
     }
 }

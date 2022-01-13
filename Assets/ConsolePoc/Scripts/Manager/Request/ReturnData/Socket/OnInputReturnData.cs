@@ -2,8 +2,8 @@ namespace Nagih
 {
     public class OnInputReturnData : SocketReturnData
     {
-        public string Id;
-        public InputController Input;
-        public InputAction Conditon;
+        public string id;
+        public InputController input;
+        public InputAction condition;
     }
 }

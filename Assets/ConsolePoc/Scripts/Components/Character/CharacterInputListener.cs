@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
-using System;
 
 namespace Nagih
 {
     public class CharacterInputListener : Character
     {
         private Vector3 Direction = Vector3.zero;
-        
+
         public void ClearPosition()
         {
             Direction = Vector3.zero;
@@ -18,8 +17,12 @@ namespace Nagih
 
         public string OnChangeColor()
         {
-            Color color = UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-            base.ChangeColorCharacter(color);
+            Color color = new Color(
+                 Random.Range(0f, 1f),
+                 Random.Range(0f, 1f),
+                 Random.Range(0f, 1f)
+             );
+            ChangeColorCharacter(color);
             string HexColor = ColorUtility.ToHtmlStringRGB(color);
             return HexColor;
         }
@@ -28,24 +31,24 @@ namespace Nagih
         {
             switch (data)
             {
-                case InputController.Forward:
+                case InputController.up:
                     {
-                        Direction.z = move == InputAction.Down ? +1 : 0;
+                        Direction.z = move == InputAction.down ? +1 : 0;
                         break;
                     }
-                case InputController.Backward:
+                case InputController.down:
                     {
-                        Direction.z = move == InputAction.Down ? -1 : 0;
+                        Direction.z = move == InputAction.down ? -1 : 0;
                         break;
                     }
-                case InputController.Left:
+                case InputController.left:
                     {
-                        Direction.x = move == InputAction.Down ? -1 : 0;
+                        Direction.x = move == InputAction.down ? -1 : 0;
                         break;
                     }
-                case InputController.Right:
+                case InputController.right:
                     {
-                        Direction.x = move == InputAction.Down ? 1 : 0;
+                        Direction.x = move == InputAction.down ? 1 : 0;
                         break;
                     }
                 default:
@@ -58,8 +61,7 @@ namespace Nagih
         private void Update()
         {
             EditorKey();
-
-            base.MoveCharacter(Direction);
+            MoveCharacter(Direction);
         }
 
         private void EditorKey()
@@ -71,35 +73,35 @@ namespace Nagih
 
             if (Input.GetKeyDown(KeyCode.A))
             {
-                OnMove(InputController.Left, InputAction.Down);
+                OnMove(InputController.left, InputAction.down);
             }
             else if (Input.GetKeyUp(KeyCode.A))
             {
-                OnMove(InputController.Left, InputAction.Up);
+                OnMove(InputController.left, InputAction.up);
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
-                OnMove(InputController.Right, InputAction.Down);
+                OnMove(InputController.right, InputAction.down);
             }
             else if (Input.GetKeyUp(KeyCode.D))
             {
-                OnMove(InputController.Right, InputAction.Up);
+                OnMove(InputController.right, InputAction.up);
             }
             if (Input.GetKeyDown(KeyCode.W))
             {
-                OnMove(InputController.Forward, InputAction.Down);
+                OnMove(InputController.up, InputAction.down);
             }
             else if (Input.GetKeyUp(KeyCode.W))
             {
-                OnMove(InputController.Forward, InputAction.Up);
+                OnMove(InputController.up, InputAction.up);
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
-                OnMove(InputController.Backward, InputAction.Down);
+                OnMove(InputController.down, InputAction.down);
             }
             else if (Input.GetKeyUp(KeyCode.S))
             {
-                OnMove(InputController.Backward, InputAction.Up);
+                OnMove(InputController.down, InputAction.up);
             }
         }
     }
